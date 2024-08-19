@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://ipbh6yodsnji"]
+
+[ext_resource type="Script" path="res://button.gd" id="1_0djno"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0djno")
+
+[node name="PlayButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 304.0
+offset_right = 558.0
+offset_bottom = 335.0
+text = "Play"
+
+[node name="ExitButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 366.0
+offset_right = 554.0
+offset_bottom = 397.0
+text = "Exit"
