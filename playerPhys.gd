@@ -1,19 +1,60 @@
 extends CharacterBody2D
-@export var bullet : PackedScene
+class_name Player
 
+# Phys vars
 const walkMaxSpeed = 200.0
 const walkForce = 600
 const stopForce = 1300
-const jumpSpeed = 200
-const gravity = 200
+const jumpSpeed = 300
+const gravity = 5
+# Time vars
+var time_start = 0
+var time_now = 0
+
+#Player attributes
+var health: int = 100
+var regen: int = 1
+var dead: bool = false
+var element:String = "empty"
+
+func _ready() -> void:
+	time_start = Time.get_ticks_msec()
+
+func _init() -> void:
+	pass
 
 func _physics_process(_delta: float) -> void:
 	move()
-	shoot()
 		
-@onready var _animated_sprite = $AnimatedSprite2D
 
 func _process(_delta):
+	animations()
+	deadOrAlive()
+	fire()
+	timeUpdate()
+	regenerate()
+	
+# Function to get players health
+	# returns healt:int
+func getHealth():
+	return self.health
+	
+# Function to calculate dmg
+func damage(dmg):
+	self.health + dmg
+
+# Function to calculate regen
+func regenerate():
+	self.health + regen
+
+# Function to check if player is dead
+func deadOrAlive():
+	if self.health <= 0:
+		self.dead = true
+
+# Function for animations
+@onready var _animated_sprite = $AnimatedSprite2D
+func animations():
 	if Input.is_action_pressed("ui_right"):
 		_animated_sprite.flip_h = false
 		_animated_sprite.play("Run")
@@ -26,15 +67,23 @@ func _process(_delta):
 		_animated_sprite.play("Idle")
 	else:
 		_animated_sprite.stop()
-	
-func shoot():
+		
+# Function to pull the trigger
+func pullTheTrigger():
+	$Gun.shoot()
+
+# Function to get fire input
+func fire():
 	if Input.is_action_just_pressed("fire"):
-		var b = bullet.instantiate()
-		get_node("/root/World").add_child(b)
-		get_parent().add_child(b)
-		b.shoot(get_global_mouse_position(), $Gun/GunSprite/Barrel.global_position)
-	
-func move():
+		#gunCoolDown()
+		pullTheTrigger()
+		
+# Function for time tracking
+func timeUpdate():
+	time_now = time_start + 1
+
+# Function to move
+func move():	
 	# Horizontal
 	var walk := walkForce * (Input.get_axis(&"ui_left", &"ui_right"))
 	
