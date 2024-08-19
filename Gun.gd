@@ -27,10 +27,3 @@ func shoot():
 	b.add_to_group("Bullets")
 	b.global_position = $GunSprite/Barrel.global_position
 	
-var direction: Vector2	
-func PewPew(target, origin):
-	global_position = origin
-	direction = (target - origin).normalized()
-	
-func reload():
-	pass
