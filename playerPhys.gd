@@ -5,20 +5,15 @@ class_name Player
 const walkMaxSpeed = 200.0
 const walkForce = 600
 const stopForce = 1300
-const jumpSpeed = 300
-const gravity = 5
-# Time vars
-var time_start = 0
-var time_now = 0
+const jumpSpeed = 600
+const gravity = 30
+
 
 #Player attributes
 var health: int = 100
 var regen: int = 1
 var dead: bool = false
 var element:String = "empty"
-
-func _ready() -> void:
-	time_start = Time.get_ticks_msec()
 
 func _init() -> void:
 	pass
@@ -83,10 +78,7 @@ func fire():
 	if Input.is_action_just_pressed("fire"):
 		#gunCoolDown()
 		pullTheTrigger()
-		
-# Function for time tracking
-func timeUpdate():
-	time_now = time_start + 1
+
 
 # Function to move
 func move():	
