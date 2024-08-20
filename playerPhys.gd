@@ -25,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta):
 	animations()
 	deadOrAlive()
-	fire()
+	pullTheTrigger()
 	timeUpdate()
 	regenerate()
 	
@@ -73,11 +73,6 @@ func animations():
 func pullTheTrigger():
 	$Gun.shoot()
 
-# Function to get fire input
-func fire():
-	if Input.is_action_just_pressed("fire"):
-		#gunCoolDown()
-		pullTheTrigger()
 
 
 # Function to move
