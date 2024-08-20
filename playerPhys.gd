@@ -1,38 +1,27 @@
 extends CharacterBody2D
-@export var bullet : PackedScene
+class_name Player
 
+# Phys vars
 const walkMaxSpeed = 200.0
 const walkForce = 600
 const stopForce = 1300
-const jumpSpeed = 200
-const gravity = 200
+const jumpSpeed = 600
+const gravity = 30
+
+# Player vars
+var health: int = 100
+var maxHealth:int = 100
+var regen:int = 1
+
 
 func _physics_process(_delta: float) -> void:
 	move()
-	shoot()
 		
 @onready var _animated_sprite = $AnimatedSprite2D
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_right"):
-		_animated_sprite.flip_h = false
-		_animated_sprite.play("Run")
-	elif Input.is_action_pressed("ui_left"):
-		_animated_sprite.flip_h = true
-		_animated_sprite.play("Run")
-	elif Input.is_action_pressed("ui_up"):
-		_animated_sprite.play("Jump")
-	elif velocity == Vector2(0,0):
-		_animated_sprite.play("Idle")
-	else:
-		_animated_sprite.stop()
-	
-func shoot():
-	if Input.is_action_just_pressed("fire"):
-		var b = bullet.instantiate()
-		get_node("/root/World").add_child(b)
-		get_parent().add_child(b)
-		b.shoot(get_global_mouse_position(), $Gun/GunSprite/Barrel.global_position)
+	animation()
+	pullTheTrigger()
 	
 func move():
 	# Horizontal
@@ -54,3 +43,40 @@ func move():
 	
 	if is_on_floor() and Input.is_action_just_pressed(&"ui_up"):
 		velocity.y = -jumpSpeed
+		
+func animation():
+	if Input.is_action_pressed("ui_right"):
+		_animated_sprite.flip_h = false
+		_animated_sprite.play("Run")
+	elif Input.is_action_pressed("ui_left"):
+		_animated_sprite.flip_h = true
+		_animated_sprite.play("Run")
+	elif Input.is_action_pressed("ui_up"):
+		_animated_sprite.play("Jump")
+	elif velocity == Vector2(0,0):
+		_animated_sprite.play("Idle")
+	else:
+		_animated_sprite.stop()
+
+func pullTheTrigger()->void:
+	if Input.is_action_just_pressed("fire"):
+		$Gun.shoot()
+
+# Get player health		
+func getHealt()->int:
+	return self.health
+
+# Calcualte dmg
+func receiveDamage(dmg)-> void:
+	self.health -= dmg
+
+# Set regen
+func setRegen(extraRegen)->void:
+	self.regen += extraRegen
+
+# Apply regen
+func Regenerate()->void:
+	if health < maxHealth:
+		self.health = health + regen
+	else:
+		pass

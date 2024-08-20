@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cd0y5ipvcb8by"]
+[gd_scene load_steps=31 format=3 uid="uid://cd0y5ipvcb8by"]
 
 [ext_resource type="Script" path="res://playerPhys.gd" id="1_o52d6"]
 [ext_resource type="Texture2D" uid="uid://bop7wkbcrwepc" path="res://Sprites/Characters/3 Cyborg/Cyborg_death.png" id="1_ty2ic"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dtbnq5bvgq4wx" path="res://Sprites/Characters/3 Cyborg/Cyborg_jump.png" id="3_kwts0"]
 [ext_resource type="Texture2D" uid="uid://bdgrkckide8en" path="res://Sprites/Characters/3 Cyborg/Cyborg_run.png" id="4_jkkxk"]
 [ext_resource type="Script" path="res://PauseMenu.gd" id="6_exxc0"]
+[ext_resource type="Script" path="res://elementAbility.gd" id="8_8gw26"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8ek6"]
 size = Vector2(12.0795, 19.8667)
@@ -239,3 +240,12 @@ sprite_frames = SubResource("SpriteFrames_w77ce")
 animation = &"Run"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ElementAbility" type="Node" parent="."]
+script = ExtResource("8_8gw26")
+
+[node name="CooldownTimer" type="Timer" parent="ElementAbility"]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="ElementAbility/CooldownTimer" to="ElementAbility" method="_on_timer_timeout"]
