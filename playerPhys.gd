@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
+class_name Player
 
+# Phys vars
 # Phys vars
 const walkMaxSpeed = 200.0
 const walkForce = 600
@@ -8,20 +10,22 @@ const stopForce = 1300
 const jumpSpeed = 600
 const gravity = 30
 
-# Player vars
+# Player attributes
 var health: int = 100
 var maxHealth:int = 100
 var regen:int = 1
-
+var dead: bool = false
+var element:String = "empty"
 
 func _physics_process(_delta: float) -> void:
 	move()
 		
-@onready var _animated_sprite = $AnimatedSprite2D
 
 func _process(_delta):
 	animation()
 	pullTheTrigger()
+	deadOrAlive()
+	regenerate()
 	
 func move():
 	# Horizontal
@@ -80,3 +84,8 @@ func Regenerate()->void:
 		self.health = health + regen
 	else:
 		pass
+
+# Function to check if player is dead
+func deadOrAlive():
+	if self.health <= 0:
+		self.dead = true
