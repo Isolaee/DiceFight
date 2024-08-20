@@ -17,3 +17,7 @@ func look_at_mouse():
 	var mouse = get_global_mouse_position()
 	look_at(mouse)
 	
+func pewpew(target, origin):
+	global_position = origin
+	direction = (target - origin).normalized()
+	rotation = direction.angle()
