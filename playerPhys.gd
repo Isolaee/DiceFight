@@ -17,13 +17,62 @@ var regen:int = 1
 func _physics_process(_delta: float) -> void:
 	move()
 		
-@onready var _animated_sprite = $AnimatedSprite2D
 
 func _process(_delta):
-	animation()
+	animations()
+	deadOrAlive()
 	pullTheTrigger()
+	timeUpdate()
+	regenerate()
 	
-func move():
+	
+# get player element
+	# return element:str
+func getElement()->String:
+	return self.element
+
+# Function to get players health
+	# returns healt:int
+func getHealth():
+	return self.health
+	
+# Function to calculate dmg
+func damage(dmg):
+	self.health + dmg
+
+# Function to calculate regen
+func regenerate():
+	self.health + regen
+
+# Function to check if player is dead
+func deadOrAlive():
+	if self.health <= 0:
+		self.dead = true
+
+# Function for animations
+@onready var _animated_sprite = $AnimatedSprite2D
+func animations():
+	if Input.is_action_pressed("ui_right"):
+		_animated_sprite.flip_h = false
+		_animated_sprite.play("Run")
+	elif Input.is_action_pressed("ui_left"):
+		_animated_sprite.flip_h = true
+		_animated_sprite.play("Run")
+	elif Input.is_action_pressed("ui_up"):
+		_animated_sprite.play("Jump")
+	elif velocity == Vector2(0,0):
+		_animated_sprite.play("Idle")
+	else:
+		_animated_sprite.stop()
+		
+# Function to pull the trigger
+func pullTheTrigger():
+	$Gun.shoot()
+
+
+
+# Function to move
+func move():	
 	# Horizontal
 	var walk := walkForce * (Input.get_axis(&"ui_left", &"ui_right"))
 	
