@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bdgrkckide8en" path="res://Sprites/Characters/3 Cyborg/Cyborg_run.png" id="4_jkkxk"]
 [ext_resource type="Script" path="res://PauseMenu.gd" id="6_exxc0"]
 [ext_resource type="Script" path="res://elementAbility.gd" id="8_8gw26"]
+[ext_resource type="Script" path="res://elementAbility.gd" id="8_8gw26"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8ek6"]
 size = Vector2(12.0795, 19.8667)
@@ -243,9 +244,11 @@ animation = &"Run"
 
 [node name="ElementAbility" type="Node" parent="."]
 script = ExtResource("8_8gw26")
+[node name="ElementAbility" type="Node" parent="."]
+script = ExtResource("8_8gw26")
 
 [node name="CooldownTimer" type="Timer" parent="ElementAbility"]
-wait_time = 3.0
 one_shot = true
 
+[connection signal="timeout" from="ElementAbility/CooldownTimer" to="ElementAbility" method="_on_timer_timeout"]
 [connection signal="timeout" from="ElementAbility/CooldownTimer" to="ElementAbility" method="_on_timer_timeout"]

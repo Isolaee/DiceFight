@@ -1,5 +1,8 @@
 extends Node2D
 
+# Gun vars
+# Element needs to be fetch automaticly from host player
+# var element = "no"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
