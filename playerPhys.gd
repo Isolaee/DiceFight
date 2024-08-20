@@ -34,6 +34,12 @@ func _process(_delta):
 	timeUpdate()
 	regenerate()
 	
+	
+# get player element
+	# return element:str
+func getElement()->String:
+	return self.element
+
 # Function to get players health
 	# returns healt:int
 func getHealth():
