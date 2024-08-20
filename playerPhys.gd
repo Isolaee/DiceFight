@@ -8,6 +8,8 @@ const walkForce = 600
 const stopForce = 1300
 const jumpSpeed = 600
 const gravity = 30
+const jumpSpeed = 600
+const gravity = 30
 
 # Player attributes
 var health: int = 100

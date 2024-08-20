@@ -12,8 +12,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
 	look_at_mouse()
+	
+	if Input.is_action_pressed("fire"):
+		shoot()
 
-# Get mouse position and transform object to point on it.
 func look_at_mouse():
 	var mouse_pos = get_global_mouse_position()
 	look_at(mouse_pos)
