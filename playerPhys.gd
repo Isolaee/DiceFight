@@ -1,6 +1,5 @@
 extends CharacterBody2D
 class_name Player
-class_name Player
 
 # Phys vars
 # Phys vars
@@ -50,17 +49,17 @@ func move():
 		
 func animation():
 	if Input.is_action_pressed("ui_right"):
-		_animated_sprite.flip_h = false
-		_animated_sprite.play("Run")
+		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.play("Run")
 	elif Input.is_action_pressed("ui_left"):
-		_animated_sprite.flip_h = true
-		_animated_sprite.play("Run")
+		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.play("Run")
 	elif Input.is_action_pressed("ui_up"):
-		_animated_sprite.play("Jump")
+		$AnimatedSprite2D.play("Jump")
 	elif velocity == Vector2(0,0):
-		_animated_sprite.play("Idle")
+		$AnimatedSprite2D.play("Idle")
 	else:
-		_animated_sprite.stop()
+		$AnimatedSprite2D.stop()
 
 func pullTheTrigger()->void:
 	if Input.is_action_just_pressed("fire"):
@@ -79,7 +78,7 @@ func setRegen(extraRegen)->void:
 	self.regen += extraRegen
 
 # Apply regen
-func Regenerate()->void:
+func regenerate()->void:
 	if health < maxHealth:
 		self.health = health + regen
 	else:

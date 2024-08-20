@@ -1,7 +1,7 @@
 extends Node
 
 var isReady: bool = true
-var element = $Player.getElement()
+# var element = $Player.getElement()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,6 +14,5 @@ func _process(_delta: float) -> void:
 		$CooldownTimer.start()
 		print("Element Ability pressed")
 
-
-func _on_cooldown_timer_timeout() -> void:
+func _on_timer_timeout() -> void:
 	isReady = true
